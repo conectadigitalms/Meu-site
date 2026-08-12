@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050a12">
+<title>Conecta Digital — Planos e Preços</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#03070e;
+  --card:#07101b;
+  --border:#34404d;
+  --white:#f7f7f7;
+  --muted:#c8ccd2;
+  --blue:#0878e8;
+  --blue2:#0067d9;
+  --green:#20c66a;
+  --green2:#0aa956;
+  --purple:#9147e9;
+  --purple2:#7130c9;
+}
+body{
+  min-height:100vh;
+  font-family:Arial,Helvetica,sans-serif;
+  color:var(--white);
+  background:
+    radial-gradient(circle at 50% -10%,#102031 0%,transparent 42%),
+    linear-gradient(180deg,#03070e 0%,#02060c 100%);
+}
+.container{width:min(1480px,94%);margin:auto;padding:20px 0 28px}
+
+.logo-topo{
+  display:block;
+  width:min(190px,42vw);
+  height:auto;
+  margin:0 auto 20px;
+  border-radius:50%;
+  box-shadow:0 0 28px rgba(0,120,255,.25);
+}
+
+.header{text-align:center;margin-bottom:28px}
+.kicker{
+  color:#28cf8b;font-weight:800;font-size:21px;
+  letter-spacing:.5px;text-transform:uppercase;margin-bottom:7px
+}
+h1{font-size:clamp(32px,4vw,59px);line-height:1.05;margin-bottom:12px}
+.subtitle{font-size:clamp(16px,1.7vw,22px);color:#d0d2d6}
+.plans{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
+}
+.card{
+  position:relative;background:linear-gradient(180deg,#07101a,#040b13);
+  border:1px solid var(--border);border-radius:18px;padding:18px 18px 16px;
+  box-shadow:0 18px 45px rgba(0,0,0,.38);
+  overflow:hidden;display:flex;flex-direction:column;
+}
+.card.blue{border-color:#46515d}
+.card.green{border-color:#2b5d46}
+.card.purple{border-color:#555063}
+.badge{
+  position:absolute;top:0;left:50%;transform:translateX(-50%);
+  background:var(--green);color:#fff;font-weight:800;
+  padding:8px 26px;border-radius:0 0 13px 13px;white-space:nowrap;
+  box-shadow:0 5px 18px rgba(32,198,106,.25)
+}
+.top{
+  display:grid;grid-template-columns:55px 1fr auto;gap:13px;align-items:center;
+  min-height:108px;
+}
+.icon{
+  width:55px;height:55px;border-radius:15px;display:grid;place-items:center;
+  font-size:29px;font-weight:900;color:#fff
+}
+.blue .icon{background:linear-gradient(135deg,#1489ff,#0457b8)}
+.green .icon{background:linear-gradient(135deg,#2dd86f,#0b9d4e)}
+.purple .icon{background:linear-gradient(135deg,#a15bea,#6630bd)}
+.name{font-size:27px;font-weight:900}
+.desc{font-size:16px;line-height:1.35;color:#eee;margin-top:3px}
+.price{text-align:right;white-space:nowrap}
+.price strong{font-size:46px;line-height:1}
+.blue .price strong{color:#1682ef}
+.green .price strong{color:#2bc76a}
+.purple .price strong{color:#a15be8}
+.price span{display:block;color:#bbb;font-size:14px;margin-top:6px}
+.example{
+  width:100%;aspect-ratio:445/317;border-radius:11px;overflow:hidden;
+  margin:9px 0 20px;background:#111;
+}
+.example img{width:100%;height:100%;display:block;object-fit:cover}
+.receives{font-weight:800;font-size:17px;margin:0 8px 10px}
+.blue .receives{color:#1682ef}
+.green .receives{color:#2bc76a}
+.purple .receives{color:#a15be8}
+.features{
+  display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;
+  list-style:none;margin:0 8px 18px;
+}
+.features li{font-size:14px;line-height:1.25;color:#eee;position:relative;padding-left:24px}
+.features li::before{
+  content:"✓";position:absolute;left:0;top:-1px;width:16px;height:16px;
+  border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:900;
+}
+.blue .features li::before{color:#1682ef;border:1px solid #1682ef}
+.green .features li::before{color:#2bc76a;border:1px solid #2bc76a}
+.purple .features li::before{color:#a15be8;border:1px solid #a15be8}
+.examples{
+  border-radius:11px;padding:12px 12px 13px;text-align:center;
+  margin-top:auto;margin-bottom:10px;font-size:16px;line-height:1.4
+}
+.blue .examples{background:linear-gradient(135deg,#061a31,#071426);border:1px solid #164d83}
+.green .examples{background:linear-gradient(135deg,#06261c,#071a18);border:1px solid #1e654b}
+.purple .examples{background:linear-gradient(135deg,#171027,#0d1324);border:1px solid #51367d}
+.examples b{display:block;margin-bottom:4px}
+.blue .examples b{color:#1682ef}.green .examples b{color:#2bc76a}.purple .examples b{color:#a15be8}
+.btn{
+  width:100%;border:0;border-radius:9px;padding:16px 10px;
+  color:#fff;font-size:18px;font-weight:900;cursor:pointer;
+  transition:.2s;letter-spacing:.1px
+}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.blue .btn{background:linear-gradient(135deg,#087ff1,#0668d4)}
+.green .btn{background:linear-gradient(135deg,#28ce6b,#0eac54)}
+.purple .btn{background:linear-gradient(135deg,#984ce8,#7332cc)}
+.footer{
+  text-align:center;color:#aeb5bd;font-size:14px;margin-top:18px
+}
+.footer span{font-size:19px;margin-right:6px}
+@media(max-width:1050px){
+  .plans{grid-template-columns:1fr}
+  .card{max-width:720px;width:100%;margin:auto}
+}
+@media(max-width:560px){
+  .container{width:94%;padding-top:15px}
+  .top{grid-template-columns:50px 1fr;gap:10px}
+  .icon{width:50px;height:50px}
+  .price{grid-column:2;text-align:left;margin-top:-3px}
+  .price strong{font-size:38px}
+  .features{grid-template-columns:1fr}
+  .name{font-size:24px}
+  .kicker{font-size:17px}
+  .card{padding:15px}
+}
+
+/* ===== MELHORIAS CONECTA DIGITAL ===== */
+.highlight{
+  margin:34px auto 0;
+  padding:28px 24px;
+  border:1px solid #25445f;
+  border-radius:20px;
+  background:linear-gradient(135deg,#061523,#07101b);
+  box-shadow:0 16px 40px rgba(0,0,0,.28);
+}
+.highlight h2{text-align:center;font-size:clamp(25px,3vw,38px);margin-bottom:10px}
+.highlight .lead{text-align:center;color:#cfd5dc;font-size:17px;line-height:1.5;max-width:850px;margin:0 auto 22px}
+.benefits{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:14px;
+}
+.benefit{
+  background:#081421;border:1px solid #263746;border-radius:14px;padding:18px;
+}
+.benefit strong{display:block;font-size:18px;margin-bottom:6px}
+.benefit span{color:#bfc6ce;line-height:1.4;font-size:14px}
+.maintenance{
+  margin-top:18px;padding:20px;border-radius:16px;
+  border:1px solid #246447;background:linear-gradient(135deg,#06261c,#071713);
+  text-align:center;
+}
+.maintenance h3{font-size:24px;color:#2bc76a;margin-bottom:7px}
+.maintenance .maint-price{font-size:32px;font-weight:900;color:#fff;margin:8px 0}
+.maintenance p{color:#c9d0d5;line-height:1.45}
+.maintenance small{display:block;color:#aeb8bf;margin-top:8px}
+.cta{
+  margin-top:22px;text-align:center;padding:26px 18px;border-radius:20px;
+  background:linear-gradient(135deg,#0878e8,#0756ad);
+  box-shadow:0 15px 40px rgba(8,120,232,.22);
+}
+.cta h2{font-size:clamp(24px,3vw,36px);margin-bottom:8px}
+.cta p{color:#e9f3ff;margin-bottom:17px}
+.cta a{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  background:#20c66a;color:#fff;text-decoration:none;font-weight:900;
+  padding:15px 25px;border-radius:10px;font-size:18px;
+}
+.floating-wa{
+  position:fixed;right:18px;bottom:18px;z-index:50;
+  width:62px;height:62px;border-radius:50%;
+  display:grid;place-items:center;text-decoration:none;
+  background:#20c66a;color:#fff;font-size:31px;
+  box-shadow:0 8px 28px rgba(0,0,0,.45);
+  border:2px solid rgba(255,255,255,.75);
+}
+.floating-wa:hover{transform:scale(1.06)}
+@media(max-width:800px){.benefits{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){
+  .highlight{padding:22px 15px}
+  .benefits{grid-template-columns:1fr}
+  .floating-wa{right:14px;bottom:14px}
+}
+
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <header class="header">
+    <div class="kicker">PLANOS E PREÇOS</div>
+    <h1>Escolha o plano ideal para o seu negócio</h1>
+    <p class="subtitle">Sites profissionais, modernos e responsivos para atrair mais clientes e aumentar seus resultados.</p>
+  </header>
+
+  <main class="plans">
+
+    <article class="card blue">
+      <div class="top">
+        <div class="icon">◎</div>
+        <div>
+          <div class="name">BÁSICO</div>
+          <div class="desc">Ideal para profissionais e pequenos negócios</div>
+        </div>
+        <div class="price"><strong>R$ 199</strong><span>À VISTA</span></div>
+      </div>
+
+      <div class="example">
+        <img src="basico.jpg" alt="Exemplo de site profissional do plano Básico">
+      </div>
+
+      <div class="receives">Você recebe:</div>
+      <ul class="features">
+        <li>Página profissional (1 página)</li>
+        <li>Botão de WhatsApp</li>
+        <li>Até 5 seções</li>
+        <li>Links para redes sociais</li>
+        <li>Apresentação da empresa</li>
+        <li>Design responsivo</li>
+        <li>Serviços ou produtos</li>
+        <li>Publicação do site</li>
+      </ul>
+
+      <div class="examples">
+        <b>Exemplos de negócios:</b>
+        Barbearia, salão de beleza, eletricista,<br>
+        fotógrafo, personal trainer, entre outros.
+      </div>
+
+      <button class="btn" onclick="pedir('BÁSICO','R$ 199')">💬 QUERO ESTE PLANO</button>
+    </article>
+
+    <article class="card green">
+      <div class="badge">★ MAIS VENDIDO</div>
+
+      <div class="top">
+        <div class="icon">↗</div>
+        <div>
+          <div class="name">INTERMEDIÁRIO</div>
+          <div class="desc">Para empresas que precisam de mais estrutura</div>
+        </div>
+        <div class="price"><strong>R$ 399</strong><span>À VISTA</span></div>
+      </div>
+
+      <div class="example">
+        <img src="intermediario.jpg" alt="Exemplo de site completo do plano Intermediário">
+      </div>
+
+      <div class="receives">Você recebe:</div>
+      <ul class="features">
+        <li>Até 5 páginas</li>
+        <li>Google Maps</li>
+        <li>Design profissional personalizado</li>
+        <li>Botão de WhatsApp</li>
+        <li>Galeria de fotos</li>
+        <li>Redes sociais</li>
+        <li>Catálogo de produtos ou serviços</li>
+        <li>Design responsivo</li>
+        <li>Formulário de contato</li>
+        <li>Publicação do site</li>
+      </ul>
+
+      <div class="examples">
+        <b>Exemplos de negócios:</b>
+        Restaurantes, pizzarias, clínicas, academias,<br>
+        oficinas, imobiliárias, empresas de serviços.
+      </div>
+
+      <button class="btn" onclick="pedir('INTERMEDIÁRIO','R$ 399')">💬 QUERO ESTE PLANO</button>
+    </article>
+
+    <article class="card purple">
+      <div class="top">
+        <div class="icon">🛒</div>
+        <div>
+          <div class="name">COMPLETO</div>
+          <div class="desc">Loja virtual completa para vender todos os dias</div>
+        </div>
+        <div class="price"><strong>R$ 800</strong><span>À VISTA</span></div>
+      </div>
+
+      <div class="example">
+        <img src="completo.jpg" alt="Exemplo de loja virtual do plano Completo">
+      </div>
+
+      <div class="receives">Você recebe:</div>
+      <ul class="features">
+        <li>Tudo do plano Intermediário</li>
+        <li>Carrinho de compras</li>
+        <li>Loja virtual completa</li>
+        <li>Pedido pelo WhatsApp</li>
+        <li>Catálogo de produtos</li>
+        <li>Recursos personalizados</li>
+        <li>Categorias de produtos</li>
+        <li>Design profissional</li>
+        <li>Preços e informações</li>
+        <li>Publicação do site</li>
+      </ul>
+
+      <div class="examples">
+        <b>Exemplos de negócios:</b>
+        Lojas de roupas, eletrônicos, cosméticos,<br>
+        acessórios, pet shops, distribuidoras e outros.
+      </div>
+
+      <button class="btn" onclick="pedir('COMPLETO','R$ 800')">💬 QUERO ESTE PLANO</button>
+    </article>
+
+  </main>
+
+
+  <section class="highlight">
+    <h2>Por que escolher a Conecta Digital?</h2>
+    <p class="lead">Seu negócio merece uma presença profissional na internet. Criamos sites modernos, adaptados para celular e pensados para facilitar o contato com seus clientes.</p>
+
+    <div class="benefits">
+      <div class="benefit">
+        <strong>📱 100% responsivo</strong>
+        <span>Seu site funciona bem em celular, tablet e computador.</span>
+      </div>
+      <div class="benefit">
+        <strong>⚡ Rápido e moderno</strong>
+        <span>Visual profissional e navegação simples para seus clientes.</span>
+      </div>
+      <div class="benefit">
+        <strong>📲 WhatsApp integrado</strong>
+        <span>Facilite o contato e transforme visitantes em oportunidades.</span>
+      </div>
+      <div class="benefit">
+        <strong>🌐 Site publicado</strong>
+        <span>Entregamos seu site online e pronto para você divulgar.</span>
+      </div>
+      <div class="benefit">
+        <strong>🎨 Personalizado</strong>
+        <span>O projeto é adaptado ao seu negócio, serviços e identidade.</span>
+      </div>
+      <div class="benefit">
+        <strong>💰 Preço acessível</strong>
+        <span>Planos pensados para pequenos negócios e profissionais.</span>
+      </div>
+    </div>
+
+    <div class="maintenance">
+      <h3>🔧 Manutenção opcional</h3>
+      <div class="maint-price">R$ 100/mês</div>
+      <p>Pequenas alterações, atualizações de informações, troca de imagens e suporte para manter seu site sempre atualizado.</p>
+      <small>A manutenção é opcional e contratada separadamente.</small>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2>Pronto para colocar seu negócio na internet?</h2>
+    <p>Escolha seu plano e fale diretamente com a Conecta Digital pelo WhatsApp.</p>
+    <a href="https://wa.me/5567996479239?text=Olá!%20Vi%20os%20planos%20da%20Conecta%20Digital%20e%20quero%20criar%20um%20site%20para%20meu%20negócio." target="_blank" rel="noopener">💬 QUERO MEU SITE</a>
+  </section>
+
+  <div class="footer"><span>♧</span> Todos os planos incluem suporte e hospedagem durante o período do projeto.</div>
+</div>
+
+<script>
+function pedir(plano, valor){
+  const numero = "5567996479239";
+  const texto = `Olá! Tenho interesse no plano ${plano} da Conecta Digital, no valor de ${valor}. Gostaria de saber mais detalhes.`;
+  const url = `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
+  window.open(url, "_blank");
+}
+</script>
+
+<a class="floating-wa" href="https://wa.me/5567996479239?text=Olá!%20Quero%20saber%20mais%20sobre%20os%20sites%20da%20Conecta%20Digital." target="_blank" rel="noopener" aria-label="Falar com a Conecta Digital pelo WhatsApp">◉</a>
+
+</body>
+</html>
